@@ -1,0 +1,16 @@
+name: ClanSystem
+version: '${version}'
+main: de.hotkeyyy.clansystem.ClanSystem
+authors: [Hotkeyyy]
+description: A simple clan system
+commands:
+  clan:
+    description: Clan commands
+    usage: /clan
+    aliases: [c]
+    permission: clansystem.clan
+  togglechat:
+    description: Toggle the clan chat
+    usage: /togglechat
+    aliases: [tc]
+    permission: clansystem.togglechat
