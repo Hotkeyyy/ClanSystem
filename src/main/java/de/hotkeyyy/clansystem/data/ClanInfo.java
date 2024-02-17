@@ -2,9 +2,9 @@ package de.hotkeyyy.clansystem.data;
 
 public class ClanInfo {
 
-    public String name;
-    public int id;
-    public String ownerID;
+    public final String name;
+    public final int id;
+    public final String ownerID;
 
     public ClanInfo(int id, String name, String ownerID) {
         this.name = name;

@@ -18,8 +18,8 @@ import java.util.UUID;
 
 public class ClanManager {
 
-    public ClanSystem plugin = ClanSystem.instance;
-    public HashMap<Player, ClanInfo> pendingInvites = new HashMap<>();
+    public final ClanSystem plugin = ClanSystem.instance;
+    public final HashMap<Player, ClanInfo> pendingInvites = new HashMap<>();
 
     public void handleLeave(Player player) {
         if (plugin.databaseManager.existPlayer(player) && plugin.databaseManager.getPlayerInfo(player.getUniqueId()).clanID != 0) {

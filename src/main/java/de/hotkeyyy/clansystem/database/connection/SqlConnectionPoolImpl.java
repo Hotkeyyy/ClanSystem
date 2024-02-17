@@ -14,14 +14,14 @@ public class SqlConnectionPoolImpl implements ConnectionPool {
     private final String url;
     private final String username;
     private final String password;
-    public List<PooledConnection> availableConnections;
-    public List<PooledConnection> usedConnections;
+    public final List<PooledConnection> availableConnections;
+    public final List<PooledConnection> usedConnections;
     private final long expirationTimeMillis;
     private final int poolSize;
 
     public SqlConnectionPoolImpl(String host, String port, String database, String driver, String username, String password, int poolSize, long expirationTimeMillis) {
         this.url = "jdbc:mysql://" + host + ":" + port + "/" + database;
-        ;
+
         this.username = username;
         this.password = password;
         this.poolSize = poolSize;

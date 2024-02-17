@@ -4,9 +4,9 @@ import java.util.UUID;
 
 public class ClanPlayerInfo {
 
-    public UUID id;
-    public String name;
-    public int clanID;
+    public final UUID id;
+    public final String name;
+    public final int clanID;
 
     public ClanPlayerInfo(UUID uniqueId, String name, int i) {
         this.id = uniqueId;

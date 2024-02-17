@@ -11,11 +11,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinEvent implements Listener {
 
-    ClanSystem plugin = ClanSystem.instance;
+    final ClanSystem plugin = ClanSystem.instance;
 
     /**
      * This method is called when a player joins the server.
      * It checks if the player is already in the database and if not, it creates a new entry for the player.
+     *
      * @param event The event that is called when a player joins the server.
      */
     @EventHandler

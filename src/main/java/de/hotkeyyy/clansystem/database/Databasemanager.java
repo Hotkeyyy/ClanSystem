@@ -12,16 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
-public class Databasemanager {
+public class DatabaseManager {
 
-    SqlConnectionPoolImpl connectionPool;
-    public ClanInfoCache clanInfoCache;
-    public PlayerInfoCache playerInfoCache;
+    final SqlConnectionPoolImpl connectionPool;
+    public final ClanInfoCache clanInfoCache;
+    public final PlayerInfoCache playerInfoCache;
 
 
-    public Databasemanager(SqlConnectionPoolImpl connectionPool) {
+    public DatabaseManager(SqlConnectionPoolImpl connectionPool) {
         this.connectionPool = connectionPool;
         this.clanInfoCache = new ClanInfoCache();
         this.playerInfoCache = new PlayerInfoCache();
@@ -34,7 +33,7 @@ public class Databasemanager {
         connectionPool.close();
     }
 
-    public void createTables() throws ExecutionException, SQLException {
+    public void createTables() throws SQLException {
         Connection connection = connectionPool.getConnection();
 
         PreparedStatement queryStatement = connection.prepareStatement(
@@ -277,7 +276,7 @@ public ClanPlayerInfo getPlayerInfo(String name) {
     public boolean existClanName(String name) {
         try {
 
-            if(clanInfoCache.getMap().values().stream().filter(clanInfo -> clanInfo.name.equals(name)).count() != 0) return true;
+            if(clanInfoCache.getMap().values().stream().anyMatch(clanInfo -> clanInfo.name.equals(name))) return true;
 
             Connection connection = connectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Clans WHERE clan_name = ?");
@@ -332,25 +331,5 @@ public ClanPlayerInfo getPlayerInfo(String name) {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<ClanInfo> getClans() {
-        try {
-            List<ClanInfo> clans = new ArrayList<>();
-            Connection connection = connectionPool.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Clans");
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                clans.add(new ClanInfo(rs.getInt("clan_id"), rs.getString("clan_name"), rs.getString("owner_id")));
-            }
-            preparedStatement.close();
-            rs.close();
-            connectionPool.releaseConnection(connection);
-            return clans;
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-        return null;
     }
 }

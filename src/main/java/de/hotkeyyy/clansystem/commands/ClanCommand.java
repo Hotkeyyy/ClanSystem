@@ -1,18 +1,18 @@
 package de.hotkeyyy.clansystem.commands;
 
 import de.hotkeyyy.clansystem.ClanSystem;
-import de.hotkeyyy.clansystem.data.ClanInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
+import java.util.List;
 
 public class ClanCommand implements CommandExecutor {
 
-    public ClanSystem plugin = ClanSystem.instance;
+    public final ClanSystem plugin = ClanSystem.instance;
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
@@ -76,57 +76,6 @@ public class ClanCommand implements CommandExecutor {
                 default:
                     sendHelpMessage(player);
             }
-
-//            if (args.length == 0) {
-//                sendHelpMessage(player);
-//
-//            } else if (args.length == 1) {
-//                if (args[0].equalsIgnoreCase("leave")) {
-//                    //leave clan
-//                    plugin.clanManager.handleLeave(player);
-//                } else if (args[0].equalsIgnoreCase("delete")) {
-//                    plugin.clanManager.handleDelete(player);
-//                    //delete clan
-//                } else if (args[0].equalsIgnoreCase("info")) {
-//
-//                    plugin.clanManager.handleInfo(player);
-//                }
-//            } else if (args.length == 2) {
-//                if (args[0].equalsIgnoreCase("create")) {
-//                    //create clan
-//                    String clanName = args[1];
-//                    //    ClanSystem.databasemanager.createClan(clanName, player);
-//                    plugin.clanManager.handleCreate(player, clanName);
-//                } else if (args[0].equalsIgnoreCase("invite")) {
-//                    //invite player
-//                    plugin.clanManager.handleInvite(player, args[1]);
-//                } else if (args[0].equalsIgnoreCase("kick")) {
-//                    //kick player
-//                    plugin.clanManager.handleKick(player, args[1]);
-//                } else if (args[0].equalsIgnoreCase("join")) {
-//                    ClanInfo clanInfo = plugin.clanManager.pendingInvites.get(player);
-//                    if (clanInfo == null) {
-//                        player.sendMessage("§cDu hast keine Einladung!");
-//                        return;
-//                    }
-//                    plugin.clanManager.pendingInvites.remove(player);
-//                    plugin.databaseManager.addPlayerToClan(player, clanInfo);
-//                    player.sendMessage("§aDu bist dem Clan beigetreten!");
-//                } else if (args[0].equalsIgnoreCase("deny")) {
-//                    ClanInfo invitedClan = plugin.clanManager.pendingInvites.get(player);
-//                    if (invitedClan == null) {
-//                        player.sendMessage("§cDu hast keine Einladung!");
-//                        return;
-//                    }
-//                    Player inviteSender = Bukkit.getPlayer(UUID.fromString(invitedClan.ownerID));
-//                    if (inviteSender != null) {
-//                        inviteSender.sendMessage("§c" + player.getName() + " hat die Einladung abgelehnt!");
-//                    }
-//                    plugin.clanManager.pendingInvites.remove(player);
-//                    player.sendMessage("§cDu hast die Einladung abgelehnt!");
-//
-//                } else sendHelpMessage(player);
-         //   }
         });
         return true;
 
@@ -143,3 +92,4 @@ public class ClanCommand implements CommandExecutor {
 
 
 }
+

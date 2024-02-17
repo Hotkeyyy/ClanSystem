@@ -8,9 +8,10 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ClanChatManager {
-    public final HashMap<UUID, ChatType> currentChat = new HashMap<>();
+    public final ConcurrentHashMap<UUID, ChatType> currentChat = new ConcurrentHashMap<>();
 
     public final ClanSystem plugin;
 

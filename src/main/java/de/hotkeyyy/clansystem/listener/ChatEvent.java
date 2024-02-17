@@ -8,7 +8,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatEvent implements Listener {
 
-    ClanSystem plugin = ClanSystem.instance;
+    final ClanSystem plugin = ClanSystem.instance;
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {

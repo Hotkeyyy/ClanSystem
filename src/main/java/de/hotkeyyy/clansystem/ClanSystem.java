@@ -3,8 +3,9 @@ package de.hotkeyyy.clansystem;
 import de.hotkeyyy.clansystem.chat.ClanChatManager;
 import de.hotkeyyy.clansystem.clan.ClanManager;
 import de.hotkeyyy.clansystem.commands.ClanCommand;
+import de.hotkeyyy.clansystem.commands.ClanTabCompleter;
 import de.hotkeyyy.clansystem.commands.ToggleChatCommand;
-import de.hotkeyyy.clansystem.database.Databasemanager;
+import de.hotkeyyy.clansystem.database.DatabaseManager;
 import de.hotkeyyy.clansystem.database.connection.SqlConnectionPoolImpl;
 import de.hotkeyyy.clansystem.listener.ChatEvent;
 import de.hotkeyyy.clansystem.listener.JoinEvent;
@@ -13,7 +14,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
 
 /**
  * The main class of the plugin.
@@ -22,7 +22,7 @@ public final class ClanSystem extends JavaPlugin {
 
     public static ClanSystem instance;
     public ClanManager clanManager;
-    public Databasemanager databaseManager;
+    public DatabaseManager databaseManager;
     public SqlConnectionPoolImpl connectionPool;
     public ClanChatManager clanChatManager;
 
@@ -54,13 +54,13 @@ public final class ClanSystem extends JavaPlugin {
                 getConfig().getInt("sql.pool.poolsize"),
                 30000L
         );
-        databaseManager = new Databasemanager(
+        databaseManager = new DatabaseManager(
                 connectionPool
         );
 
         try {
             databaseManager.createTables();
-        } catch (ExecutionException | SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         clanManager = new ClanManager();
@@ -92,6 +92,7 @@ public final class ClanSystem extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("clan").setExecutor(new ClanCommand());
+        getCommand("clan").setTabCompleter(new ClanTabCompleter());
         getCommand("togglechat").setExecutor(new ToggleChatCommand());
     }
 
